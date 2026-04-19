@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/Predictive-Load-Balancer/static/js/main.b9a95be3.js",
+    "index.html": "/Predictive-Load-Balancer/index.html",
+    "main.b9a95be3.js.map": "/Predictive-Load-Balancer/static/js/main.b9a95be3.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b9a95be3.js"
+  ]
+}
