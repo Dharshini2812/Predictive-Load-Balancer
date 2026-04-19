@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: predictive-load-balancer
+    env: docker
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    plan: free
+    region: ohio
+    envVars:
+      - key: PORT
+        value: 5005
+      - key: MONGODB_URI
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: FRONTEND_URL
+        value: https://predictive-load-balancer.onrender.com
+      - key: REACT_APP_API_URL
+        value: https://predictive-load-balancer.onrender.com/api
+      - key: REACT_APP_SOCKET_URL
+        value: https://predictive-load-balancer.onrender.com

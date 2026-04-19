@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    container_name: load-balancer-backend
+    ports:
+      - "5005:5005"
+    environment:
+      - PORT=5005
+      - MONGODB_URI=mongodb://mongodb:27017/loadbalancer
+      - NODE_ENV=production
+      - FRONTEND_URL=http://localhost:3005
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: load-balancer-frontend
+    ports:
+      - "3005:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
