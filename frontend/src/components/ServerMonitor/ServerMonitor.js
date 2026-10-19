@@ -145,7 +145,7 @@ const ServerMonitor = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
                   <Typography variant="h6">{server.name}</Typography>
                   <Chip 
-                    label={server.status.toUpperCase()} 
+                    label={server.status?.toUpperCase() || 'UNKNOWN'}
                     size="small" 
                     color={server.status === 'active' ? 'success' : 'warning'}
                     sx={{ fontWeight: 600, fontSize: '0.65rem' }}
@@ -218,7 +218,7 @@ const ServerMonitor = () => {
                 <Divider sx={{ mb: 2, opacity: 0.1 }} />
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-                  <IconButton size="small" onClick={() => handleToggleStatus(server._id, server.status)}>
+                  <IconButton size="small" onClick={() => handleToggleStatus(server._id, server.status || 'unknown')}>
                     {server.status === 'active' ? <BuildIcon fontSize="small" /> : <PlayArrowIcon fontSize="small" />}
                   </IconButton>
                   <IconButton size="small" color="error" onClick={() => handleDeleteServer(server._id)}>
