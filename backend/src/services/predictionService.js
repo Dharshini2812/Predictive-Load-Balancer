@@ -1,13 +1,16 @@
 const ss = require('simple-statistics');
 const LoadMetric = require('../models/LoadMetric');
+const { isDemoMode, getDemoMetrics } = require('../utils/demoData');
 
 class PredictionService {
   async predictLoad(serverId, hours = 1) {
     try {
-      const historicalData = await LoadMetric.find({
-        serverId: serverId,
-        timestamp: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
-      }).sort({ timestamp: 1 });
+      const historicalData = isDemoMode()
+        ? getDemoMetrics(serverId, 24)
+        : await LoadMetric.find({
+          serverId: serverId,
+          timestamp: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+        }).sort({ timestamp: 1 });
       
       if (historicalData.length < 10) {
         return this.getDefaultPrediction(hours);
