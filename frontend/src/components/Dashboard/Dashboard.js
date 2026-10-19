@@ -19,9 +19,9 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    const socketUrl = process.env.NODE_ENV === 'production'
-      ? window.location.origin
-      : (process.env.REACT_APP_SOCKET_URL || 'http://localhost:5005');
+    const socketUrl = process.env.REACT_APP_SOCKET_URL || (
+      process.env.NODE_ENV === 'production' ? window.location.origin : 'http://localhost:5005'
+    );
       
     const socket = io(socketUrl);
     

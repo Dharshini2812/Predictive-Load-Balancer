@@ -13,16 +13,22 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:3005',
+  'https://dharshini2812.github.io'
+].filter(Boolean);
+
 const io = socketIO(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3005",
+    origin: allowedOrigins,
     methods: ["GET", "POST"]
   }
 });
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3005"
+  origin: allowedOrigins
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

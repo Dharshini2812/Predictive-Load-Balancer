@@ -69,6 +69,19 @@ This project is now fully optimized for Render. You can deploy it as a single se
 
 Render will now automatically find the `Dockerfile` at the root, build both the frontend and backend, and deploy them together as one single service. This solves the "Dockerfile not found" error!
 
+### Deployment to GitHub Pages
+
+GitHub Pages can host the frontend, while the backend continues running on Render. From the repository root in PowerShell, publish the frontend with:
+
+```powershell
+$env:REACT_APP_API_URL = "https://predictive-load-balancer-2811.onrender.com/api"
+$env:REACT_APP_SOCKET_URL = "https://predictive-load-balancer-2811.onrender.com"
+npm install --prefix frontend
+npm run deploy --prefix frontend
+```
+
+In the repository's **Settings → Pages**, select **Deploy from a branch**, then choose the `gh-pages` branch and `/(root)` folder. The backend allows requests from this repository's GitHub Pages origin. After updating the frontend, run the deploy command again; backend changes are deployed separately through Render.
+
 ## License
 
 This project is licensed under the ISC License.
